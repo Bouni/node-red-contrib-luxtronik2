@@ -11,7 +11,7 @@
     "keywords": [ "node-red", "luxtronik2" ],
     "node-red"     : {
         "nodes": {
-            "luxtronik2": "luxtronik2.js"
+            "luxtronik2": "luxtronik2/luxtronik2.js"
         }
     }
 }
