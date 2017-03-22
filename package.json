@@ -1,0 +1,17 @@
+{
+    "name"         : "node-red-contrib-luxtronik2",
+    "version"      : "0.0.1",
+    "description"  : "Luxtronik2 Nodes for Node Red",
+    "dependencies": {
+    },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/bouni/node-red-contrib-luxtronik2.git"
+	},
+    "keywords": [ "node-red", "luxtronik2" ],
+    "node-red"     : {
+        "nodes": {
+            "luxtronik2": "luxtronik2.js"
+        }
+    }
+}
