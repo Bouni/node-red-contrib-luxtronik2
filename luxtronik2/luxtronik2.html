@@ -18,7 +18,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('luxtronik2',{
         category: 'Luxtronik2',
-        color: '#646464',
+        color: '#EEE',
         defaults: {
             host: {value:"", required:true},
             port: {value:8889, required:true, validate:RED.validators.number()}
@@ -34,18 +34,20 @@
 
 <script type="text/x-red" data-template-name="luxtronik2">
     <div class="form-row">
-        <label for="node-config-input-host"><i class="icon-bookmark"></i> Host</label>
-        <input type="text" id="node-config-input-host">
+        <label for="node-input-host"><i class="icon-bookmark"></i> Host</label>
+        <input type="text" id="node-input-host">
     </div>
     <div class="form-row">
-        <label for="node-config-input-port"><i class="icon-bookmark"></i> Port</label>
-        <input type="text" id="node-config-input-port">
+        <label for="node-input-port"><i class="icon-bookmark"></i> Port</label>
+        <input type="text" id="node-input-port">
     </div>
 </script>
 
 <script type="text/x-red" data-help-name="luxtronik2">
     <p>Connects to a Luxtronik2 heatpump and fetchs data from it</p>
 </script>
+
+
 <!-- Luxtronik2 node -->
 <!--
 <script type="text/x-red" data-template-name="Luxtronik2 request">
