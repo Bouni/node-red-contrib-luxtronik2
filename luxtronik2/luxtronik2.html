@@ -18,7 +18,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('luxtronik2',{
         category: 'Luxtronik2',
-        color: '#EEE',
+        color: '#BBB',
         defaults: {
             host: {value:"", required:true},
             port: {value:8889, required:true, validate:RED.validators.number()}
@@ -33,6 +33,7 @@
 </script>
 
 <script type="text/x-red" data-template-name="luxtronik2">
+    <h4>Connection settings</h4>
     <div class="form-row">
         <label for="node-input-host"><i class="icon-bookmark"></i> Host</label>
         <input type="text" id="node-input-host">
@@ -41,58 +42,32 @@
         <label for="node-input-port"><i class="icon-bookmark"></i> Port</label>
         <input type="text" id="node-input-port">
     </div>
+    <h4>Parser settings</h4>
+    <div class="form-row">
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-index" placeholder="" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-index" style="width: 70%;">Include <b>index</b> in result?</label>
+    </div>
+    <div class="form-row">
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-id" placeholder="" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-id" style="width: 70%;">Include <b>ID</b> in result?</label>
+    </div>
+    <div class="form-row">
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-description" placeholder="" style="display: inline-block; width: auto; vertical-align: top;" checked=checked>
+        <label for="node-input-description" style="width: 70%;">Include <b>description</b> in result?</label>
+    </div>
+    <div class="form-row" style="padding-left:100px">
+        <div>Format of the parsed value</div>
+        <select id="node-input-format">
+            <option value="0">Raw value</option>
+            <option value="1">Value including unit</option>
+            <option value="2" selected>Both</option>
+        </select>
+    </div>
 </script>
 
 <script type="text/x-red" data-help-name="luxtronik2">
     <p>Connects to a Luxtronik2 heatpump and fetchs data from it</p>
 </script>
-
-
-<!-- Luxtronik2 node -->
-<!--
-<script type="text/x-red" data-template-name="Luxtronik2 request">
-    <div class="form-row">
-        <label for="node-input-server"><i class="fa fa-globe"></i> Mpd Server</label>
-        <input type="text" id="node-input-server">
-    </div>
-    <div class="form-row">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic" placeholder="Topic">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="Luxtronik2 request">
-    <p>A Luxtronik2 request node</p>
-    <p> Send commands to a Luxtronik2 heatpump controller and receive data from it. The <code>msg.payload</code> specifies the desired Luxtronik2 command. See <a href='www.loxwiki.eu/display/LOX/Luxtronik+2' target="_blank">Loxwiki, Luxtronik2 section</a>
-        for details.
-    </p>
-    <p> Valid commands are 3003, 3004, and 3005. The 3002 command (write parameters) is not yet supported.
-    </p>
-</script>
-
-<script type="text/javascript">
-    RED.nodes.registerType('Luxtronik2 request',{
-        category: 'Luxtronik2',      
-        defaults: {            
-            name: {value:""},   
-            topic: {value:""},
-            server: {value:"", type:"Luxtronik2"},
-        },
-        color: "#646464",
-        inputs:1,
-        outputs:1,
-        icon: "luxtronik2.png",
-        label: function() {
-            return this.name||this.topic||"Luxtronik2 request";
-        },
-        labelStyle: function() {
-            return this.name?"node_label_italic":"";
-        },
-        paletteLabel: function() { return "Luxtronik2 request"; }
-    });
-</script>
--->
