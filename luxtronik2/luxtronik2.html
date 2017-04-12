@@ -42,32 +42,13 @@
         <label for="node-input-port"><i class="icon-bookmark"></i> Port</label>
         <input type="text" id="node-input-port">
     </div>
-    <h4>Parser settings</h4>
-    <div class="form-row">
-        <label>&nbsp;</label>
-        <input type="checkbox" id="node-input-index" placeholder="" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-index" style="width: 70%;">Include <b>index</b> in result?</label>
-    </div>
-    <div class="form-row">
-        <label>&nbsp;</label>
-        <input type="checkbox" id="node-input-id" placeholder="" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-input-id" style="width: 70%;">Include <b>ID</b> in result?</label>
-    </div>
-    <div class="form-row">
-        <label>&nbsp;</label>
-        <input type="checkbox" id="node-input-description" placeholder="" style="display: inline-block; width: auto; vertical-align: top;" checked=checked>
-        <label for="node-input-description" style="width: 70%;">Include <b>description</b> in result?</label>
-    </div>
-    <div class="form-row" style="padding-left:100px">
-        <div>Format of the parsed value</div>
-        <select id="node-input-format">
-            <option value="0">Raw value</option>
-            <option value="1">Value including unit</option>
-            <option value="2" selected>Both</option>
-        </select>
-    </div>
+    <p>
+        Luxtronik2 controllers prior to V1.76 use the port 8888, all later versions use 8889.
+    </p>
 </script>
 
 <script type="text/x-red" data-help-name="luxtronik2">
-    <p>Connects to a Luxtronik2 heatpump and fetchs data from it</p>
+    <p>Connects to a Luxtronik2 heat pump controller and receives data from it, which then gets parsed.
+        The query gets triggered by any input.
+    </p> 
 </script>

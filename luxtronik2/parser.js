@@ -1,23 +1,23 @@
  var parser = {
 
 	unknown : function(v) {
-		return v;
+		return {value:v, type:"unknown"};
 	},
     bool : function(v) {
-        return {raw:v, full:parseInt(v) == 1 ? true : false};
+        return {value:parseInt(v) == 1 ? true : false, type:"boolean"};
     },
     celcius : function(v) {
-        val = parseFloat(v) / 10;
-        return {raw:val, full:val.toFixed(2) + "°C"};
+        var val = parseFloat(v) / 10;
+        return {value:val, type:"celcius"};
     },
     seconds : function(v) {
-        return {raw:v, full:parseInt(v) + "s"};
+        return {value:parseInt(v), type:"seconds"};
     },
     pulses : function(v) {
-        return {raw:v, full:parseInt(v) + "Imp."};
+        return {value:parseInt(v), type:"pulses"};
     },
 	typecode : function(n) {
-		codes = {
+		var codes = {
             0:"ERC",
 			1:"SW1",
 			2:"SW2",
@@ -86,18 +86,18 @@
 			73:"MSW 16S",
 			74:"MSW2-6S",
 			75:"MSW4-16"}
-		return codes[n];
+		return {value:codes[n], type:"type code"};
 	},
 	bivalence : function(n) {
-		levels = {
+		var levels = {
 			1:"Ein Verdichter darf laufen",
 			2:"Zwei Verdichter dürfen laufen",
 			3:"Zusätzlicher Wärmeerzeuger darf mitlaufen"
 			}
-		return levels[n]
+		return {value:levels[n], type:"bivalence level"};
 	},
 	operating_state : function(n) {
-		states = {
+		var states = {
 			0:"Heizen",
 			1:"Warmwasser",
 			2:"Schwimmbad / Photovoltaik",
@@ -107,26 +107,32 @@
 			6:"Heizen ext. Energiequelle",
 			7:"Kühlbetrieb"
 		}
-		return state[n];
+		return {value:states[n], type:"operating state"};
 	},
 	ascii : function(v) {
-		return String.fromCharCode(parseInt(v));
+        var val = parseInt(v);
+        if(val > 0) {
+    		return {value:String.fromCharCode(parseInt(v)), type:"software version"};
+        } else {
+            return {value:"", type:"software version"};
+        }
 	},
 	ip : function(v) {
-		v = parseInt(v);
-		return (v >> 24) & 0xFF + "." + (v >> 16) & 0xFF + "." + (v >> 8) & 0xFF + "." (v & 0xFF);
+		var v = parseInt(v);
+		return {value:[((v >> 24) & 0xFF),((v >> 16) & 0xFF),((v >> 8) & 0xFF),(v & 0xFF)].join("."), type:"IP address"};
 	},
 	timestamp: function(v) {
-		return {raw:parseInt(v), full: new Date(parseInt(v) * 1000)};
+		return {value:new Date(parseInt(v) * 1000), type:"date"};
 	},
 	errorcode : function(v) {
-		return parseInt(v);
+		return {value:parseInt(v), type:"error code"};
 	},
-	errrocount : function(v) {
-		return parseInt(v);	
+	errorcount : function(v) {
+		return {value:parseInt(v), type:"error count"};	
 	},
 	switchoff : function(v) {
-		codes = {
+		var codes = {
+            0:"",
 			1:"Wärmepumpe Störung",
 			2:"Anlagen Störung",
 			3:"Betriebsart Zweiter Wärmeerzeuger",
@@ -136,10 +142,10 @@
 			7:"Temperatur Einsatzgrenze minimal (bei LWD reversibel möglicherweise Abschaltung wegen Frostschutz bei Kühlbetrieb - Verdampfungstemperatur zu lange unter 0°C)",
 			8:"Untere Einsatzgrenze",
 			9:"Keine Anforderung"}
-		return codes[v];
+		return {value:codes[v], type:"switchoff reason"};
 	},
 	statuscode1 : function(v) {
-		codes = {
+		var codes = {
 			0:"Wärmepumpe läuft",
 			1:"Wärmepumpe steht",
 			2:"Wärmepumpe kommt",
@@ -149,17 +155,17 @@
 			6:"Verdichter heizt auf",
 			7:"Pumpenvorlauf"
 			}
-		return codes[v];
+		return {value:codes[v], type:"status code 1"};
 	},
 	statuscode2 : function(v) {
-		codes = {
+		var codes = {
 			0:"seit",
 			1:"in",
 		}
-		return codes[v];
+		return {value:codes[v], type:"status code 2"};
 	},
 	statuscode3 : function(v) {
-		codes = {
+		var codes = {
 			0:"Heizbetrieb",
 			1:"Keine Anforderung",
 			2:"Netz-Einschaltverzögerung",
@@ -177,38 +183,38 @@
 			16:"Durchflussüberachung",
 			17:"Zweiter Wärmeerzeuger 1 Betrieb"    
 		}
-		return codes[v];
+		return {value:codes[v], type:"status code 3"};
 	},
     volt : function(v) {
-        val = parseFloat(v) / 100;
-        return {raw:val, full:val.toFixed(2) + "V"};
+        var val = parseFloat(v) / 100;
+        return {value:val, type:"volt"};
     },
     power : function(v) {
-        val = parseFloat(v) / 10;
-        return {raw:val, full:val.toFixed(2) + "kWh"};
+        var val = parseFloat(v) / 10;
+        return {value:val, type:"kWh"};
     },
     flowrate : function(v) {
-        val = parseFloat(v);
-        return {raw:val, full:val.toFixed(2) + "l/h"};
+        var val = parseFloat(v);
+        return {value:val, type:"liter/hour"};
     },
     kelvin : function(v) {
-        val = parseFloat(v) / 10;
-        return {raw:val, full:val.toFixed(2) + "K"};
+        var val = parseFloat(v) / 10;
+        return {value:val, type:"kelvin"};
     },
     bar : function(v) {
-        val = parseFloat(v) / 100;
-        return {raw:val, full:val.toFixed(2) + "bar"};
+        var val = parseFloat(v) / 100;
+        return {value:val, type:"bar"};
     },
-    bar : function(v) {
-        val = parseFloat(v) / 10;
-        return {raw:val, full:val + "%"};
+    percent : function(v) {
+        var val = parseFloat(v) / 10;
+        return {value:val, type:"percent"};
     },
     rpm : function(v) {
-        val = parseInt(v);
-        return {raw:val, full:val + "RPM"};
+        var val = parseInt(v);
+        return {value:val, type:"rpm"};
     },
 	operating_state_sec : function(n) {
-		states = {
+		var states = {
 			0:"Aus",
 			1:"Kühlung",
 			2:"Heizung",
@@ -223,11 +229,11 @@
 			11:"Simulation Start",
 			12:"EVU Sperre"   
 		}
-		return state[n];
+		return {value:states[n], type:"operating state SEC"};
 	},
     frequency : function(v) {
-        val = parseInt(v);
-        return {raw:val, full:val + "Hz"};
+        var val = parseInt(v);
+        return {value:val, type:"Hz"};
     },
     structure : {
 		10:{"id":"ID_WEB_Temperatur_TVL", "description":"Vorlauftemperatur Heizkreis", "convert":"celcius"},
@@ -340,7 +346,7 @@
 		117:{"id":"ID_WEB_HauptMenuStatus_Zeile1", "description":"Status Zeile 1", "convert":"statuscode1"},
 		118:{"id":"ID_WEB_HauptMenuStatus_Zeile2", "description":"Status Zeile 2", "convert":"statuscode2"},
 		119:{"id":"ID_WEB_HauptMenuStatus_Zeile3", "description":"Status Zeile 3", "convert":"statuscode3"},
-		120:{"id":"ID_WEB_HauptMenuStatus_Zeit", "description":"Zeit seit / in (in kombination mit #118)", "convert":"timestamp"},
+		120:{"id":"ID_WEB_HauptMenuStatus_Zeit", "description":"Zeit seit / in (in kombination mit #118)", "convert":"seconds"},
 		121:{"id":"ID_WEB_HauptMenuAHP_Stufe", "description":"Stufe Ausheizprogramm", "convert":"unknown"},
 		122:{"id":"ID_WEB_HauptMenuAHP_Temp", "description":"Temperatur Ausheizprogramm", "convert":"celcius"},
 		123:{"id":"ID_WEB_HauptMenuAHP_Zeit", "description":"Laufzeit Ausheizprogramm", "convert":"seconds"},
@@ -451,7 +457,7 @@
 		228:{"id":"ID_WEB_RBE_RT_Soll", "description":"Raumtemperatur Sollwert", "convert":"celcius"},
 		229:{"id":"ID_WEB_Temperatur_BW_oben", "description":"Temperatur Brauchwasser Oben", "convert":"celcius"},
 		230:{"id":"ID_WEB_Code_WP_akt_2", "description":"Wärmepumpen Typ 2", "convert":"typecode"},
-		231:{"id":"ID_WEB_Freq_VD", "sescription":"Verdichterfrequenz", "convert":"frequency"}
+		231:{"id":"ID_WEB_Freq_VD", "description":"Verdichterfrequenz", "convert":"frequency"}
 	}
 };
 
