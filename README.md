@@ -1,5 +1,5 @@
 # Luxtronik2 Node for Node RED
-Control and monitor you Luxtronik2 Heatpump out of Node RED
+Read data from a Luxtronik2 heat pump controller and parse the data into usable values.
 
 # Installation
 ToDo
