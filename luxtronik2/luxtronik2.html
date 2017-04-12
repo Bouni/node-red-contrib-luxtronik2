@@ -20,8 +20,15 @@
         category: 'Luxtronik2',
         color: '#BBB',
         defaults: {
-            host: {value:"", required:true},
-            port: {value:8889, required:true, validate:RED.validators.number()}
+            host: {value:"", required:true, validate: function(val) {
+                    return val.match(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/);
+                }
+            },
+            port: {value:8889, required:true, validate:function(val){
+                    var port = parseInt(val);
+                    return (port > 0) && (port < 0x10000);
+                }
+            }
         },
         inputs:1,
         outputs:1,
