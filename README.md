@@ -3,16 +3,14 @@ node-red-contrib-luxtronik2
 
 [Node-RED][1] contribution package for [Luxtronik2][2] heat pump controllers
 
+**Attention**: unfortunately I dicovered just after I buzilt and published this repo that there is already a node called *node-red-contrib-luxtronik2*. You can find it here: [coolchip/node-red-contrib-luxtronik2](https://github.com/coolchip/node-red-contrib-luxtronik2)
+
+Anyway, as far as I can tell my node works fine and I'll stickto it.
+
 # Install
 
-Run the following command in the root directory of your Node-RED install
+TBD
 
-    npm install node-red-contrib-luxtronik2
-
-Run the following command for global install
-
-    npm install -g node-red-contrib-luxtronik2
-   
 # How to use
 
 1. Place the node within your flow
