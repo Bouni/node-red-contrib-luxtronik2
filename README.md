@@ -1,6 +1,8 @@
 node-red-contrib-luxtronik2
 ========================
 
+**Warning: this repo is no longer maintained!**
+
 [Node-RED][1] contribution package for [Luxtronik2][2] heat pump controllers
 
 **Attention**: unfortunately I dicovered just after I buzilt and published this repo that there is already a node called *node-red-contrib-luxtronik2*. You can find it here: [coolchip/node-red-contrib-luxtronik2](https://github.com/coolchip/node-red-contrib-luxtronik2)
